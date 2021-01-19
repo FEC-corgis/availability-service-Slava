@@ -1,17 +1,46 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
-  "license": "",
+  "name": "availability-service-slava",
+  "description": "> Project description",
+  "author": "Slava",
+  "license": "ISC",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
+    "dev:start": "webpack serve",
+    "start": "nodemon server/index.js"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "babel-loader": "^8.2.2",
+    "body-parser": "^1.19.0",
+    "css-loader": "^5.0.1",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^4.5.1",
+    "mysql": "^2.18.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "sequelize": "^6.3.5",
+    "style-loader": "^2.0.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
-  }
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+    "webpack": "^5.14.0",
+    "webpack-cli": "^4.3.1"
+  },
+  "version": "1.0.0",
+  "main": "./server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FEC-corgis/availability-service-Slava.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FEC-corgis/availability-service-Slava/issues"
+  },
+  "homepage": "https://github.com/FEC-corgis/availability-service-Slava#readme"
 }
