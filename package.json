@@ -18,9 +18,10 @@
     "express": "^4.17.1",
     "html-webpack-plugin": "^4.5.1",
     "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "sequelize": "^6.3.5",
+    "sequelize": "^6.4.0",
     "style-loader": "^2.0.0",
     "webpack-dev-server": "^3.11.2"
   },
