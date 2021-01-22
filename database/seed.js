@@ -1,9 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const schema = require('./index.js');
-const sequelize = new Sequelize('availability', 'root', 'sqlcraft', {
-  host: 'localhost',
-  dialect: 'mysql'
-})
 
 //Verify connection
 const auth = async ()=> {

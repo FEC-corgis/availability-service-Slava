@@ -1,7 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const schema = require('./seed.js');
-const sequelize = new Sequelize('availability', 'root', 'sqlcraft', {
-  host: 'localhost',
+const dotenv = require('dotenv').config({ path: '../vars'});
+const sequelize = new Sequelize('availability', {
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
   dialect: 'mysql'
 })
 
