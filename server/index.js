@@ -31,5 +31,10 @@ app.get('/prices', (req, res) => {
     })
 })
 app.get('/availability', (req, res) => {
-
+  models.getReservations(req.body.propertyId)
+    .then((result)=> {
+      console.log('RESERVATIONS', result)
+      res.send(result);
+    })
+    .catch((err)=> {throw err})
 })

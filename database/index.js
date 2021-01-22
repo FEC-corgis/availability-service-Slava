@@ -1,7 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('availability', 'root', 'sqlcraft', {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'mysql',
+  query: {raw: true}
 })
 
 

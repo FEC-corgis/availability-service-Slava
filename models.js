@@ -5,7 +5,8 @@ let getPrice = async (id) => {
     attributes: [['weekDay', 'price']],
     where: {
       propertyId: id
-    }
+    },
+
   });
   return price;
 }
@@ -19,6 +20,7 @@ let getPrices = async () => {
 
 let getReservations = async (id) => {
   let reservations = await db.Reservation.findAll({
+    attributes: ['checkIn', 'checkOut'],
     where: {
       propertyId: id
     }
