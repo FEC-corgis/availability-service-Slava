@@ -1,15 +1,9 @@
-const dotenv = require('dotenv').config({ path: '../vars'});
-console.log('HELLO')
-console.log('PROCESS ENV', process.env);
+require('dotenv').config({path: '../.env'});
 const { Sequelize, DataTypes } = require('sequelize');
-const schema = require('./seed.js');
-const sequelize = new Sequelize('availability', {
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
+const sequelize = new Sequelize('availability', process.env.DB_USER, process.env.DB_PASS, {
+  host: 'localhost',
   dialect: 'mysql'
 })
-
 
 //Verify connection
 const auth = async ()=> {
@@ -22,3 +16,5 @@ const auth = async ()=> {
 }
 
 auth();
+
+module.exports = {sequelize};
