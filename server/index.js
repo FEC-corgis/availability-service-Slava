@@ -1,12 +1,15 @@
 const express = require('express')
 const app = express();
+var bodyParser = require('body-parser');
+
 const db = require('../database/index');
 const models = require('../models')
-var bodyParser = require('body-parser');
 const { ModuleFilenameHelpers } = require('webpack');
 
-
-app.listen(3001);
+const PORT = 3001;
+app.listen(PORT, ()=>{
+  console.log(`Listening on port ${PORT}`)
+});
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -31,7 +34,10 @@ app.get('/prices', (req, res) => {
     })
 })
 app.get('/availability', (req, res) => {
-  models.getReservations(req.body.propertyId)
+  console.log('req params', req.query.propertyId);
+  let propertyId = req.query.propertyId;
+  console.log(propertyId);
+  models.getReservations(propertyId)
     .then((result)=> {
       console.log('RESERVATIONS', result)
       res.send(result);
