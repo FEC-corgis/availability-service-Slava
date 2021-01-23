@@ -1,18 +1,24 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const schema = require('./index.js');
 
-//Verify connection
-const auth = async ()=> {
-  try {
-    await sequelize.authenticate();
-    console.log('SUCCESS: Database connected');
-  } catch (error) {
-  console.log(`ERROR: Can't connect to database: ${error}`)
-  }
-}
+const sequelize = new Sequelize('availability', {
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  dialect: 'mysql'
+})
+// //Verify connection
+// const auth = async ()=> {
+//   try {
+//     await sequelize.authenticate();
+//     console.log('SUCCESS: Database connected');
+//   } catch (error) {
+//   console.log(`ERROR: Can't connect to database: ${error}`)
+//   }
+// }
 
 //Data models
-const Reservation = sequelize.define('Reservation', {
+const Reservation = schema.sequelize.define('Reservation', {
   propertyId: { type: DataTypes.INTEGER},
   checkIn: { type: DataTypes.DATEONLY },
   checkOut: { type: DataTypes.DATEONLY }

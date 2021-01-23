@@ -1,6 +1,8 @@
+const dotenv = require('dotenv').config({ path: '../vars'});
+console.log('HELLO')
+console.log('PROCESS ENV', process.env);
 const { Sequelize, DataTypes } = require('sequelize');
 const schema = require('./seed.js');
-const dotenv = require('dotenv').config({ path: '../vars'});
 const sequelize = new Sequelize('availability', {
   host: process.env.DB_HOST,
   username: process.env.DB_USER,
