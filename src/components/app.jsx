@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import Month from './month'
+import Month from './Month'
 
 var isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
 dayjs.extend(isSameOrAfter);
 var isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
 dayjs.extend(isSameOrBefore);
-
-const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +16,18 @@ class App extends React.Component {
       propertyId: 20,
       reservations: [],
       matrices: [],
+      checkIn: null,
+      checkOut: null
     };
+    this.selectCheckIn = this.selectCheckIn.bind(this);
+
+  }
+
+  selectCheckIn(checkIn) {
+    console.log('hey');
+    this.setState({
+      checkIn: checkIn
+    }, ()=> {console.log('checkin setstate', this.state)})
   }
 
   componentDidMount() {
@@ -51,11 +60,10 @@ class App extends React.Component {
     let dayCount = 1;
     let months = [];
     let DateObj = class {
-      constructor(dateCount, disabled) {
+      constructor(dateCount, disabled, checkOutOnly) {
         this.date = dateCount,
         this.disabled = disabled,
-        this.checkoutOnly = null,
-        this.available = true
+        this.checkOutOnly = checkOutOnly
       }
     }
 
@@ -90,7 +98,7 @@ class App extends React.Component {
             //check if current date is between current reservation and increment res
             //if daycount is between current reservation, disabled = true
             let disabled;
-
+            let checkOutOnly;
 
             let currentDate = dayjs().month(currentMonth).date(dayCount).startOf('d');
 
@@ -101,11 +109,13 @@ class App extends React.Component {
               }
             }
 
-            // console.log('current', currentDate, 'daycount', dayCount);
-
+            //check if day before checkIn
+            if (currentDate.isSame(currentCheckIn.subtract(1, 'day'))) {
+              checkOutOnly = true;
+            }
 
             //create a push date cell
-            let dateObj = new DateObj(dayCount, disabled);
+            let dateObj = new DateObj(dayCount, disabled, checkOutOnly);
             week.push(dateObj);
             dayCount++;
           }
@@ -120,32 +130,18 @@ class App extends React.Component {
     this.setState({
       matrices: months
     }, ()=>{
-      console.log('MATRICES SET', this.state)
+      // console.log('MATRICES SET', this.state)
     });
   }
 
   render () {
     return (
       <div>
-        <table cellSpacing='0' cellPadding='0'>
-          <thead>
-            <tr>
-              {daysOfWeek.map((day)=> <th key={day}>{day}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.matrices[0] && this.state.matrices[3].map(
-              (row, index)=> (
-                <tr key={index}>
-                  {row.map(
-                    (day, index)=>(<td key={index}>{day.date}</td>)
-                  )}
-                </tr>
-              )
-            )}
-          </tbody>
-        </table>
-
+        {this.state.matrices[0] && this.state.matrices.map(
+          (month, index) => {
+            return <Month key={index} selectCheckIn={this.selectCheckIn} matrix={month} monthYear={dayjs().month(index).format('MMMM YYYY')}/>
+          }
+          )}
       </div>
     )
   }
