@@ -1,6 +1,7 @@
 import React from 'react';
 import DateCell from './DateCell';
 import styled from 'styled-components'
+import dayjs, { Dayjs } from 'dayjs';
 
 const Th = styled.th`
     color: #717171;
@@ -20,10 +21,10 @@ const H3 = styled.h3`
 
 let daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-const Month = ({monthYear, matrix, selectCheckIn}) => (
+const Month = ({checkIn, checkOut, matrix, month, selectCheckIn, selectCheckOut, year}) => (
   <div>
     <H3>
-      {`${monthYear}`}
+      {`${dayjs().month(month).year(year).format('MMMM YYYY')}`}
     </H3>
     <table cellSpacing='0' cellPadding='0'>
       <thead>
@@ -36,7 +37,19 @@ const Month = ({monthYear, matrix, selectCheckIn}) => (
           (row, index)=> (
             <tr key={index}>
               {row.map(
-                (day, index)=>(<DateCell selectCheckIn={selectCheckIn} key={index} date={day.date} disabled={day.disabled} checkOutOnly={day.checkOutOnly} active={day.active} />)
+                (day, index)=>(<DateCell
+                  active={day.active}
+                  checkIn={checkIn}
+                  checkOut={checkOut}
+                  checkOutOnly={day.checkOutOnly}
+                  date={day.date}
+                  disabled={day.disabled}
+                  key={index}
+                  month={month}
+                  selectCheckIn={selectCheckIn}
+                  selectCheckOut={selectCheckOut}
+                  year={year}
+                  />)
               )}
             </tr>
           )

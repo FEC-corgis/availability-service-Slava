@@ -25,8 +25,16 @@ const Td = styled.td`
 `;
 
 
-const DateCell = ({date, disabled, checkOutOnly, selectCheckIn}) => (
-  <Td disabled={disabled} checkOutOnly={checkOutOnly} onChange={e => selectCheckIn(target.value)}>{date}</Td>
-)
+const DateCell = ({checkIn, checkOut, checkOutOnly, date, disabled, month, selectCheckIn, selectCheckOut, year}) => {
+  let onClickValue;
+  if (disabled || checkOutOnly) {
+    onClickValue === null;
+  } else if (checkIn) {
+    onClickValue = e => selectCheckOut(year, month, date);
+  } else {
+    onClickValue = e => selectCheckIn(year, month, date);
+  }
+  return (<Td disabled={disabled} checkOutOnly={checkOutOnly} onClick={onClickValue}>{date}</Td>)
+}
 
 export default DateCell;

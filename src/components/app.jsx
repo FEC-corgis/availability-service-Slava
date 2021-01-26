@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import Month from './Month'
 
 var isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -20,15 +20,21 @@ class App extends React.Component {
       checkOut: null
     };
     this.selectCheckIn = this.selectCheckIn.bind(this);
-
+    this.selectCheckOut = this.selectCheckOut.bind(this);
   }
 
-  selectCheckIn(checkIn) {
-    console.log('hey');
+  selectCheckIn(year, month, date) {
     this.setState({
-      checkIn: checkIn
+      checkIn: dayjs().year(year).month(month).date(date).format('YYYY-MM-DD')
     }, ()=> {console.log('checkin setstate', this.state)})
   }
+
+  selectCheckOut(year, month, date) {
+    this.setState({
+      checkOut: dayjs().year(year).month(month).date(date).format('YYYY-MM-DD')
+    }, ()=> {console.log('checkin setstate', this.state)})
+  }
+
 
   componentDidMount() {
     axios.get(`/availability?propertyId=${this.state.propertyId}`)
@@ -135,11 +141,23 @@ class App extends React.Component {
   }
 
   render () {
+    let monthToday = dayjs().month();
+
     return (
       <div>
+            <p>{`Checkin: ${this.state.checkIn}, checkout: ${this.state.checkOut}`}</p>
         {this.state.matrices[0] && this.state.matrices.map(
           (month, index) => {
-            return <Month key={index} selectCheckIn={this.selectCheckIn} matrix={month} monthYear={dayjs().month(index).format('MMMM YYYY')}/>
+            return <Month
+              checkIn={this.state.checkIn}
+              checkOut={this.state.checkOut}
+              key={index}
+              matrix={month}
+              month={dayjs().add(index, 'months').month()}
+              selectCheckIn={this.selectCheckIn}
+              selectCheckOut={this.selectCheckOut}
+              year={dayjs().month(monthToday+index).year()}
+            />
           }
           )}
       </div>
