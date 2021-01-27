@@ -21,7 +21,7 @@ const H3 = styled.h3`
 
 let daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-const Month = ({checkIn, checkOut, matrix, month, selectCheckIn, selectCheckOut, year}) => (
+const Month = ({checkIn, checkOut, matrix, matrixIndex, month, selectCheckIn, selectCheckOut, year}) => (
   <div>
     <H3>
       {`${dayjs().month(month).year(year).format('MMMM YYYY')}`}
@@ -34,18 +34,21 @@ const Month = ({checkIn, checkOut, matrix, month, selectCheckIn, selectCheckOut,
       </thead>
       <tbody>
         {matrix.map(
-          (row, index)=> (
-            <tr key={index}>
+          (row, rowIndex)=> (
+            <tr key={rowIndex}>
               {row.map(
-                (day, index)=>(<DateCell
+                (day, dayIndex)=>(<DateCell
                   active={day.active}
                   checkIn={checkIn}
                   checkOut={checkOut}
                   checkOutOnly={day.checkOutOnly}
                   date={day.date}
+                  dayIndex={dayIndex}
                   disabled={day.disabled}
-                  key={index}
+                  key={dayIndex}
                   month={month}
+                  matrixIndex={matrixIndex}
+                  rowIndex={rowIndex}
                   selectCheckIn={selectCheckIn}
                   selectCheckOut={selectCheckOut}
                   year={year}

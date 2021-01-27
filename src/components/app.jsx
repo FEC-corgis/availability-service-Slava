@@ -23,15 +23,23 @@ class App extends React.Component {
     this.selectCheckOut = this.selectCheckOut.bind(this);
   }
 
-  selectCheckIn(year, month, date) {
+  selectCheckIn(year, month, date, matrixIndex, rowIndex, dayIndex) {
+    let newMatrices = [...this.state.matrices];
+    newMatrices[matrixIndex][rowIndex][dayIndex] = {...newMatrices[matrixIndex][rowIndex][dayIndex], active: true}
+
     this.setState({
-      checkIn: dayjs().year(year).month(month).date(date).format('YYYY-MM-DD')
+      checkIn: dayjs().year(year).month(month).date(date).format('YYYY-MM-DD'),
+      matrices: newMatrices
     }, ()=> {console.log('checkin setstate', this.state)})
   }
 
-  selectCheckOut(year, month, date) {
+  selectCheckOut(year, month, date, matrixIndex, rowIndex, dayIndex) {
+    let newMatrices = [...this.state.matrices];
+    newMatrices[matrixIndex][rowIndex][dayIndex] = {...newMatrices[matrixIndex][rowIndex][dayIndex], active: true}
+
     this.setState({
-      checkOut: dayjs().year(year).month(month).date(date).format('YYYY-MM-DD')
+      checkOut: dayjs().year(year).month(month).date(date).format('YYYY-MM-DD'),
+      matrices: newMatrices
     }, ()=> {console.log('checkin setstate', this.state)})
   }
 
@@ -66,10 +74,11 @@ class App extends React.Component {
     let dayCount = 1;
     let months = [];
     let DateObj = class {
-      constructor(dateCount, disabled, checkOutOnly) {
+      constructor(dateCount, disabled, checkOutOnly, active) {
         this.date = dateCount,
         this.disabled = disabled,
         this.checkOutOnly = checkOutOnly
+        this.active = active
       }
     }
 
@@ -121,7 +130,7 @@ class App extends React.Component {
             }
 
             //create a push date cell
-            let dateObj = new DateObj(dayCount, disabled, checkOutOnly);
+            let dateObj = new DateObj(dayCount, disabled, checkOutOnly, null);
             week.push(dateObj);
             dayCount++;
           }
@@ -153,6 +162,7 @@ class App extends React.Component {
               checkOut={this.state.checkOut}
               key={index}
               matrix={month}
+              matrixIndex={index}
               month={dayjs().add(index, 'months').month()}
               selectCheckIn={this.selectCheckIn}
               selectCheckOut={this.selectCheckOut}
