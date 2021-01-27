@@ -1,10 +1,11 @@
+require('dotenv').config({path: '../.env'});
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('availability', 'root', 'sqlcraft', {
+
+const sequelize = new Sequelize('availability', process.env.DB_USER, process.env.DB_PASS, {
   host: 'localhost',
   dialect: 'mysql',
   query: {raw: true}
 })
-
 
 //Verify connection
 const auth = async ()=> {
