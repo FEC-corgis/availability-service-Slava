@@ -7,9 +7,9 @@ const models = require('../models')
 const { ModuleFilenameHelpers } = require('webpack');
 
 const PORT = 3001;
-app.listen(PORT, ()=>{
-  console.log(`Listening on port ${PORT}`)
-});
+// app.listen(PORT, ()=>{
+//   console.log(`Listening on port ${PORT}`)
+// });
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -44,3 +44,5 @@ app.get('/availability', (req, res) => {
     })
     .catch((err)=> {throw err})
 })
+
+module.exports = {app};

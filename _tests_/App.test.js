@@ -1,7 +1,8 @@
-describe('Examining the syntax of Jest tests', () => {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from '../src/components/app';
+import { render, screen, fireEvent } from '@testing-library/react';
 
-  it('sums numbers', () => {
-      expect(1 + 2).toEqual(3);
-      expect(2 + 2).toEqual(4);
-   });
-});
+test ('render App component', ()=>{
+
+})
