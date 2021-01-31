@@ -22,7 +22,7 @@ const H3 = styled.h3`
 let daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const Month = ({checkIn, checkOut, matrix, matrixIndex, month, selectCheckIn, selectCheckOut, year}) => (
-  <div>
+  <div data-testid={`month-test`}>
     <H3>
       {`${dayjs().month(month).year(year).format('MMMM YYYY')}`}
     </H3>
