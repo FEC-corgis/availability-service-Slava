@@ -2,32 +2,6 @@ const { Sequelize, DataTypes } = require('sequelize');
 const index = require('./index');
 const sequelize = index.sequelize;
 
-//Data models
-const Reservation = sequelize.define('Reservation', {
-  propertyId: { type: DataTypes.INTEGER},
-  checkIn: { type: DataTypes.DATEONLY },
-  checkOut: { type: DataTypes.DATEONLY }
-}, {
-  timestamps: false
-});
-
-const Price = sequelize.define('Price', {
-  propertyId: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  weekDay: { type: DataTypes.INTEGER },
-  weekEnd: { type: DataTypes.INTEGER },
-  occupancyTax: { type: DataTypes.DECIMAL(10, 2) }
-}, {
-  timestamps: false
-});
-
-const Selection = sequelize.define('Selection', {
-  guests: { type: DataTypes.INTEGER },
-  checkIn: { type: DataTypes.DATEONLY },
-  checkOut: { type: DataTypes.DATEONLY }
-}, {
-  timestamps: false
-})
-
 //Seeding functions
 let weekDayPrice = ()=> {
   return (Math.floor(Math.random()*30)+10)*10;
@@ -72,13 +46,11 @@ sequelize.sync({ force: true })
       let occupancy = occupancyRate();
       let stays = randomDates();
 
-      Price.create({weekDay: newWeekDayPrice, weekEnd: newWeekEndPrice, occupancyTax: occupancy});
+      models.Price.create({weekDay: newWeekDayPrice, weekEnd: newWeekEndPrice, occupancyTax: occupancy});
 
       for ( j = 0; j < stays.length; j++) {
-        Reservation.create({propertyId: i, checkIn: stays[j]['checkIn'], checkOut: stays[j]['checkOut']})
+        models.Reservation.create({propertyId: i, checkIn: stays[j]['checkIn'], checkOut: stays[j]['checkOut']})
       }
     }
     console.log(`Database & tables seeded!`);
   });
-
-module.exports = {Reservation, Price, Selection}

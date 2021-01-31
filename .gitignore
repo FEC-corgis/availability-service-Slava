@@ -1,3 +1,7 @@
 node_modules
 node_modules
+<<<<<<< HEAD
 process.env
+=======
+vars.env
+>>>>>>> startCalendar

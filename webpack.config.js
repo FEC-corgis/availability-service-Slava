@@ -1,10 +1,11 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
+  mode: "development",
   output: {
-    filename: "bundle.[hash].js",
+    filename: "bundle.js",
     path: path.resolve(__dirname, "public"),
   },
   plugins: [
@@ -21,7 +22,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: require.resolve("babel-loader"),
+        use: "babel-loader",
       },
       {
         test: /\.css$/,

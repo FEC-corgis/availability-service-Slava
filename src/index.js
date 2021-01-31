@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './components/App'
 
-const availability = <div>hello there</div>;
-
-ReactDOM.render(availability, document.getElementById('availability'));
+ReactDOM.render(<App/>, document.getElementById('availability'));
