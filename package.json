@@ -43,6 +43,9 @@
     "webpack": "^5.14.0",
     "webpack-cli": "^4.3.1"
   },
+  "jest": {
+    "clearMocks": true
+  },
   "version": "1.0.0",
   "main": "./server/index.js",
   "repository": {
