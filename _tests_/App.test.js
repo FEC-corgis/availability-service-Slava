@@ -15,10 +15,23 @@ describe('Calendar render', ()=>{
 
   test('should render month', ()=> {
     const getSpy = jest.spyOn(axios, 'get');
-    render(<App />)
-    const firstMonth = screen.queryByTestId('month-test');
-    console.log('FIRST MONTHHHH', firstMonth)
-    expect(firstMonth).toBeInTheDocument();
+    const {container, debug, queryByTestId} = render(<App />)
+    debug();
+    // const firstMonth = queryByTestId('month-test');
+    // console.log('FIRST MONTHHHH', firstMonth)
+    // expect(firstMonth).toBeInTheDocument();
+
+    //mock axios module
+      //jest.mockImplementationOnce for entire doc
+        //mock axios module jest
+
+    //consider chaining
+
+    //validate state at time of render
+
+
+
+
   })
 
 })
