@@ -30,11 +30,9 @@ const DateCell = ({matrixIndex, rowIndex, dayIndex, active, checkIn, checkOut, c
     onClickValue === null;
   } else if (checkIn) {
     onClickValue = (e) => {
-      console.log('active', active)
       return selectCheckOut(year, month, date, matrixIndex, rowIndex, dayIndex);
     }
   } else {
-    console.log('active', active)
     onClickValue = e => selectCheckIn(year, month, date, matrixIndex, rowIndex, dayIndex);
   }
   return (<Td active={active} disabled={disabled} checkOutOnly={checkOutOnly} onClick={onClickValue}>{date}</Td>)
