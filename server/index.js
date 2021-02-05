@@ -7,7 +7,8 @@ const PORT = 3001;
 
 const db = require('../database/index');
 const models = require('../models')
-
+console.log ('PATH JOIN', path.join(__dirname, '../public'));
+app.use('/rooms/:id', express.static(path.join(__dirname, '../public')))
 // app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -38,8 +39,7 @@ app.get('/prices', (req, res) => {
   //   console.log('PROPERTYID', req.params.propertyId)
   //   res.sendFile('../public')
   // })
-  app.get('/rooms/:propertyId', express.static('public'));
-  // app.use('/rooms/:id', express.static(path.join(__dirname, 'public')))
+  // app.get('/rooms/:propertyId', express.static('public'));
 
 
 app.get('/availability/:propertyId', (req, res) => {

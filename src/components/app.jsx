@@ -45,10 +45,7 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    console.log('hey WINDOW LOCATION', window.location.pathname.split().pop())
-    //add back in availability query param
-    let propertyId = window.location.pathname.split().pop();
-    axios.get(`/availability/${propertyId}`)
+    axios.get(`/availability/${window.location.pathname.slice(7)}`)
       .then((resp)=> {
         this.setState({
           reservations: resp.data
