@@ -45,7 +45,9 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    axios.get(`/availability/${window.location.pathname.slice(7)}`)
+    let propertyId = window.location.pathname.slice(7);
+    console.log(propertyId);
+    axios.get(`/rooms/${propertyId}availability`)
       .then((resp)=> {
         this.setState({
           reservations: resp.data

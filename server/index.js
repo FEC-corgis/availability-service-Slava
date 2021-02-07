@@ -7,10 +7,31 @@ const PORT = 3001;
 
 const db = require('../database/index');
 const models = require('../models')
-console.log ('PATH JOIN', path.join(__dirname, '../public'));
-app.use('/rooms/:id', express.static(path.join(__dirname, '../public')))
-// app.use(express.static('public'));
+
+
+// app.use(express.static('../public'));
+
+// app.use(express.static(path.join(__dirname, '../public')))
+
+app.use('/rooms/:propertyId', express.static(path.join(__dirname, '../public')))
+
 app.use(bodyParser.json());
+
+// app.get('/rooms/:propertyId', express.static(path.join(__dirname, '../public')))
+
+//Data request
+app.get('/rooms/:propertyId/availability', (req, res) => {
+  console.log('req params', req.params.propertyId);
+  let propertyId = req.params.propertyId;
+  console.log(propertyId);
+  models.getReservations(propertyId)
+  .then((result)=> {
+    console.log('RESERVATIONS', result)
+    res.send(result);
+  })
+  .catch((err)=> {throw err})
+})
+
 
 app.get('/price', (req, res) => {
   models.getPrice(req.body.propertyId)
@@ -42,17 +63,6 @@ app.get('/prices', (req, res) => {
   // app.get('/rooms/:propertyId', express.static('public'));
 
 
-app.get('/availability/:propertyId', (req, res) => {
-  console.log('req params', req.params.propertyId);
-  let propertyId = req.params.propertyId;
-  console.log(propertyId);
-  models.getReservations(propertyId)
-  .then((result)=> {
-    console.log('RESERVATIONS', result)
-    res.send(result);
-  })
-  .catch((err)=> {throw err})
-})
 
 app.listen(PORT, ()=>{
   console.log(`Listening on port ${PORT}`)
